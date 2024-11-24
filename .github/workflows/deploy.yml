@@ -12,7 +12,9 @@ on:
 
 jobs:
   deploy:
-    environment: ${{ inputs.environment }}
+    environment:
+      name: ${{ inputs.environment }}
+      url: https://jolly-beach-003795c03.5.azurestaticapps.net
     runs-on: ubuntu-latest
     steps:
       - name: Install SWA CLI
