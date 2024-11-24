@@ -9,6 +9,10 @@ on:
       app_name:
         required: true
         type: string
+      run_id:
+          required: false
+          type: string
+          default: ${{ github.run_id }}
 
 jobs:
   deploy:
@@ -27,6 +31,7 @@ jobs:
         with:
           name: artifact
           path: artifact/
+          run-id: ${{ inputs.run-id || github.run_id }}
 
       - name: Check artifact download
         run: ls -R
