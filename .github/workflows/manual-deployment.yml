@@ -1,4 +1,4 @@
-name: Manual Deploy
+name: Manual Deployment
 
 on:
   workflow_dispatch:
@@ -15,7 +15,7 @@ on:
         type: string
         default: swa-se-dev
       run_id:
-        description: 'Run ID for artifact download (optional)'
+        description: 'Run ID for artifact download (use run id of the desired CI/CD Pipeline execution)'
         required: true
         type: string
         default: ''
