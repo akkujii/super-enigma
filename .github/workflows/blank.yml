@@ -86,3 +86,7 @@ jobs:
           azcliversion: latest
           inlineScript: |
             az account show
+      
+      - name: Deploy web app
+        run: |
+          swa deploy ./artifact -S ${{ secrets.AZURE_SUBSCRIPTION_ID }} --env production -n swa-se-dev
