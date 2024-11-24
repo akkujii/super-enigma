@@ -52,6 +52,7 @@ jobs:
           retention-days: 30
           overwrite: true
   dev:
+    environment: dev
     runs-on: ubuntu-latest
     steps:
       - name: Azure login
