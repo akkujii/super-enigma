@@ -1,0 +1,28 @@
+name: Build
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run a one-line script
+        run: echo The commit is $GITHUB_SHA
+
+      - name: Build artifact
+        run: |
+          mkdir -p dist
+          cp index.html dist/index.html
+          sed -i "s|<code>.*</code>|<code>$GITHUB_SHA</code>|" dist/index.html
+          cat dist/index.html
+        shell: bash
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: artifact
+          path: dist/
+          retention-days: 30
+          overwrite: true
