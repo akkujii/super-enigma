@@ -14,7 +14,7 @@ jobs:
   deploy:
     environment:
       name: ${{ inputs.environment }}
-      url: https://jolly-beach-003795c03.5.azurestaticapps.net
+      url: ${{ steps.retrieve_site_url.outputs.webapp_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Install SWA CLI
@@ -48,3 +48,9 @@ jobs:
       - name: Deploy web app
         run: |
           swa deploy ./artifact -S ${{ secrets.AZURE_SUBSCRIPTION_ID }} --env production -n ${{ inputs.app_name }}
+
+      - name: Get Static Web App URL
+        id: retrieve_site_url
+        run: |
+          WEBAPP_URL=$(az staticwebapp show --name ${{ inputs.app_name }} --query "defaultHostname" --output tsv)
+          echo "webapp_url=https://$WEBAPP_URL" >> $GITHUB_OUTPUT
