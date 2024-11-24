@@ -58,6 +58,14 @@ jobs:
     environment: dev
     runs-on: ubuntu-latest
     steps:
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: artifact
+      - name: Check artifact download
+        run: ls -R
+
       - name: Azure login
         uses: azure/login@v2
         with:
