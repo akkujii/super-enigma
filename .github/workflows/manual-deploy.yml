@@ -22,6 +22,8 @@ on:
 
 jobs:
   call-deploy-workflow:
+    permissions:
+      actions: read
     uses: ./.github/workflows/deploy.yml
     with:
       environment: ${{ inputs.environment }}
