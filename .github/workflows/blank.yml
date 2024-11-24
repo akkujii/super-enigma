@@ -29,8 +29,18 @@ jobs:
       - name: Run a one-line script
         run: echo The commit is $GITHUB_SHA
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Build artifact
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          # Read the current commit SHA
+          COMMIT_SHA=${{ github.sha }}
+          
+          # Create dist directory if it doesn't exist
+          mkdir -p dist
+          
+          # Copy index.html to dist folder
+          cp index.html dist/index.html
+          
+          # Update dist/index.html with commit SHA
+          sed -i "s|<code>.*</code>|<code>$GITHUB_SHA</code>|" dist/index.html
+          cat dist/index.html
+        shell: bash
