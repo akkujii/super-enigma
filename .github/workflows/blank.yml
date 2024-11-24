@@ -55,6 +55,7 @@ jobs:
           retention-days: 30
           overwrite: true
   dev:
+    needs: build
     environment: dev
     runs-on: ubuntu-latest
     steps:
