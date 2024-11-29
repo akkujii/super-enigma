@@ -21,3 +21,11 @@ jobs:
       environment: dev
       app_name: swa-se-dev
     secrets: inherit
+
+  deploy-test:
+    needs: deploy-dev
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: test
+      app_name: swa-se-test
+    secrets: inherit
