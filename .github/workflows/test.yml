@@ -13,9 +13,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
       - name: Execute test.sh
         run: |
-          echo $GITHUB_CONTEXT
           chmod +x ./test.sh
           ./test.sh
         env:
