@@ -11,24 +11,51 @@ The repository contains the following GitHub Actions Workflows:
 - `main.yml` which is the workflow for main branch handling the artifact build using `build.yml` and deploying it to target enviroments using `deploy.yml`
 - `manual-deployment.yml` which enables the deployment of the artifact of the specified build to the designated target environment. This workflow is targetted to support exploratory testing where specific build can be deployed "with push of a button".
 
-# Infrastructure deployment
+## Infrastructure deployment
+
+Required tooling:
+
+- terraform cli
+- Azure cli
+
+The deployment uses local state.
 
 ```sh
-export ARM_SUBSCRIPTION_ID=<AZURE SUBSCRIPTION ID>
 
+# Login to Azure using az cli and follow instructions
+
+az login
+
+export ARM_SUBSCRIPTION_ID=$(az account show --query "id" --output tsv)
+
+# Create Terraform workspaces for state management
 terraform workspace new dev
-terraform workspace select dev
+# Create plan and check what's being deployed
 terraform plan -var="environment=dev"
+# Perform deployment
 terraform apply -var="environment=dev"
 
+# Deploy other environments
+
 terraform workspace new test
-terraform workspace select test
 terraform plan -var="environment=test"
 terraform apply -var="environment=test"
 
 terraform workspace new prod
-terraform workspace select prod
 terraform plan -var="environment=prod"
 terraform apply -var="environment=prod"
+```
+## Infrastructure teardown
+
+```sh
+terraform workspace select dev
+terraform destroy
+
+terraform workspace select test
+terraform destroy
+
+terraform workspace select prod
+terraform destroy
+
 
 ```
