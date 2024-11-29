@@ -27,7 +27,6 @@ jobs:
     uses: ./.github/workflows/test.yml
     with:
       webapp_url: ${{ needs.deploy-dev.outputs.webapp_url }}
-      content: ${{ toJson(needs.deploy-dev) }}
     secrets: inherit
 
   deploy-test:
@@ -38,8 +37,15 @@ jobs:
       app_name: swa-se-test
     secrets: inherit
 
-  deploy-prod:
+  test-test:
     needs: deploy-test
+    uses: ./.github/workflows/test.yml
+    with:
+      webapp_url: ${{ needs.deploy-test.outputs.webapp_url }}
+    secrets: inherit
+
+  deploy-prod:
+    needs: test-test
     uses: ./.github/workflows/deploy.yml
     with:
       environment: prod

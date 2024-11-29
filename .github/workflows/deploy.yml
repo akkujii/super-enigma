@@ -15,6 +15,7 @@ on:
           default: ${{ github.run_id }}
     outputs:
       webapp_url:
+        description: URL of the deployed Azure Static Web App
         value: ${{ jobs.deploy.outputs.webapp_url }}
 
 jobs:

@@ -6,9 +6,6 @@ on:
       webapp_url:
         required: true
         type: string
-      content:
-          required: true
-          type: string
 
 jobs:
   test:
@@ -16,12 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ inputs.content }}
-        run: echo "$GITHUB_CONTEXT"
-
-      - name: Execute test.sh
+      - name: Test deployment
         run: |
           chmod +x ./test.sh
           ./test.sh
