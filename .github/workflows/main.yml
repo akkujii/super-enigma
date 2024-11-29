@@ -29,3 +29,11 @@ jobs:
       environment: test
       app_name: swa-se-test
     secrets: inherit
+
+  deploy-prod:
+    needs: deploy-test
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: prod
+      app_name: swa-se-prod
+    secrets: inherit
