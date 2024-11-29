@@ -27,10 +27,11 @@ jobs:
     uses: ./.github/workflows/test.yml
     with:
       webapp_url: ${{ needs.deploy-dev.outputs.webapp_url }}
+      content: ${{ toJson(needs.deploy-dev) }}
     secrets: inherit
 
   deploy-test:
-    needs: test-dev
+    needs: test-dev 
     uses: ./.github/workflows/deploy.yml
     with:
       environment: test
