@@ -1,0 +1,23 @@
+name: Test
+
+on:
+  workflow_call:
+    inputs:
+      webapp_url:
+        required: true
+        type: string
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Execute test.sh
+        run: |
+          chmod +x ./test.sh
+          ./test.sh
+        env:
+          WEBAPP_URL: ${{ inputs.webapp_url }}
+          GITHUB_SHA: ${{ github.sha }}
+        shell: bash

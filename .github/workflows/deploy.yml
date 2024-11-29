@@ -61,3 +61,6 @@ jobs:
         run: |
           WEBAPP_URL=$(az staticwebapp show --name ${{ inputs.app_name }} --query "defaultHostname" --output tsv)
           echo "webapp_url=https://$WEBAPP_URL" >> $GITHUB_OUTPUT
+          
+    outputs:
+      webapp_url: ${{ steps.retrieve_site_url.outputs.webapp_url }}
