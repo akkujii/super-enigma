@@ -15,6 +15,7 @@ jobs:
 
       - name: Execute test.sh
         run: |
+          echo $GITHUB_CONTEXT
           chmod +x ./test.sh
           ./test.sh
         env:
