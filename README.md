@@ -10,3 +10,25 @@ The repository contains the following GitHub Actions Workflows:
 - `deploy.yml` which deploys the static web app to Azure using corresponding GitHub Deployment Environment.
 - `main.yml` which is the workflow for main branch handling the artifact build using `build.yml` and deploying it to target enviroments using `deploy.yml`
 - `manual-deployment.yml` which enables the deployment of the artifact of the specified build to the designated target environment. This workflow is targetted to support exploratory testing where specific build can be deployed "with push of a button".
+
+# Infrastructure deployment
+
+```sh
+export ARM_SUBSCRIPTION_ID=<AZURE SUBSCRIPTION ID>
+
+terraform workspace new dev
+terraform workspace select dev
+terraform plan -var="environment=dev"
+terraform apply -var="environment=dev"
+
+terraform workspace new test
+terraform workspace select test
+terraform plan -var="environment=test"
+terraform apply -var="environment=test"
+
+terraform workspace new prod
+terraform workspace select prod
+terraform plan -var="environment=prod"
+terraform apply -var="environment=prod"
+
+```
